@@ -288,5 +288,3 @@ Bug reports and PRs are welcome. For large features (sync, mobile, Postgres), op
 ## License
 
 [MIT](LICENSE) — Copyright (c) 2026 Atharv Nagaonkar.
-
-The license lives at the repo root as **`LICENSE`** (plain text, no `.md`). GitHub recognizes that name automatically; `LICENSE.md` also works but is optional and usually reserved when you want Markdown formatting in the legal text.
