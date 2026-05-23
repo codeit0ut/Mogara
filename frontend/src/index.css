@@ -1,0 +1,348 @@
+@import "tailwindcss";
+@import "react-big-calendar/lib/css/react-big-calendar.css";
+
+/* Mogara — light garden: layered whites, jasmine gold, leaf green */
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+
+  /* Layered white surfaces (brightest → deeper cream) */
+  --color-bg: #f5f3ef;
+  --color-surface: #faf9f6;
+  --color-surface-elevated: #ffffff;
+  --color-surface-cream: #f2efe8;
+  --color-surface-overlay: #ebe7df;
+  --color-border: #ddd8cf;
+  --color-border-subtle: #e8e4dc;
+  --color-border-green: #c5d4c8;
+
+  /* White scale — used for surfaces, washes, highlights */
+  --color-white-paper: #ffffff;
+  --color-white-petal: #faf8f4;
+  --color-white-cream: #f2efe8;
+  --color-white-milk: #e8e4dc;
+  --color-white-silver: #d4cfc6;
+  --color-white-veil: #b8b3aa;
+  --color-white-shadow: #9a958c;
+
+  /* Readable text on light backgrounds */
+  --color-ink: #2a2824;
+  --color-ink-secondary: #454138;
+  --color-ink-muted: #5c584f;
+  --color-ink-faint: #7a756c;
+  --color-ink-label: #6b655c;
+  --color-ink-caption: #6b655c;
+  --color-ink-placeholder: #9a958c;
+  --color-ink-disabled: #b8b3aa;
+
+  /*
+   * Dual-tone gold (fixes low contrast on white):
+   * - primary / primary-deep → strokes, text, buttons ON white/cream
+   * - primary-bright / primary-muted → glows & fills ON tinted panels only
+   */
+  --color-primary: #c4922e;
+  --color-primary-deep: #8f6b1f;
+  --color-primary-hover: #b8860b;
+  --color-primary-bright: #f0d898;
+  --color-primary-muted: #f8edd4;
+  --color-primary-glow: rgba(196, 146, 46, 0.22);
+  --color-primary-on-light: var(--color-primary-deep);
+  --color-on-accent: #fffaf2;
+
+  /* Logo well — golden sky + leaf base so white petals read clearly */
+  --color-logo-gold-light: #faf0d4;
+  --color-logo-gold: #edd896;
+  --color-logo-green-soft: #d8eadc;
+
+  /* Leaf green */
+  --color-green: #4a7a58;
+  --color-green-bright: #5e8f6a;
+  --color-green-deep: #3d5c48;
+  --color-green-muted: #e8f0ea;
+  --color-green-glow: rgba(94, 143, 106, 0.18);
+  --color-green-vein: #5e8f6a;
+
+  --color-blue: #4f7da8;
+  --color-red: #a05a5a;
+  --color-violet: #7a5f9e;
+  --color-amber: var(--color-primary);
+
+  --color-paper: var(--color-white-paper);
+  --color-paper-deep: var(--color-bg);
+  --color-accent: var(--color-primary);
+  --color-accent-soft: var(--color-primary-hover);
+  --color-glow: var(--color-primary-bright);
+  --color-glow-strong: var(--color-primary);
+  --color-success: var(--color-green);
+  --color-success-soft: var(--color-green-bright);
+
+  --color-walk-glow: var(--color-primary);
+  --color-walk-glow-bright: var(--color-primary-bright);
+  --color-ambient-glow: rgba(255, 255, 255, 0.6);
+  --color-ambient-gold: rgba(196, 146, 46, 0.1);
+  --color-ambient-green: rgba(94, 143, 106, 0.08);
+  --color-path-light: var(--color-primary);
+  --color-momentum-line: var(--color-primary-deep);
+  --color-momentum-fill: rgba(196, 146, 46, 0.22);
+  --color-momentum-peak: var(--color-primary);
+  --color-momentum-low: #e4e0d8;
+
+  --color-hover-surface: #eeeae4;
+  --color-active-press: #e5e0d8;
+  --color-border-focus: var(--color-primary);
+  --color-focus-ring: rgba(196, 146, 46, 0.38);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+
+  --shadow-soft: 0 1px 2px rgba(42, 38, 32, 0.06), 0 1px 3px rgba(42, 38, 32, 0.04);
+  --shadow-panel: 0 4px 24px rgba(42, 38, 32, 0.08), 0 1px 2px rgba(42, 38, 32, 0.04);
+  --shadow-glow: 0 0 0 1px rgba(196, 146, 46, 0.35), 0 6px 20px rgba(143, 107, 31, 0.12);
+  --shadow-green: 0 0 0 1px rgba(94, 143, 106, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  --ease-mogara: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-slow: 400ms;
+  --duration-bloom: 5200ms;
+}
+
+/* Headline emphasis (dark on light) */
+@utility text-white-bloom {
+  color: var(--color-ink);
+}
+
+@utility text-white-petal {
+  color: var(--color-ink-secondary);
+}
+
+/** Gold that stays readable on white/cream backgrounds */
+@utility text-gold {
+  color: var(--color-primary-on-light);
+}
+
+@utility text-ui-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-label);
+}
+
+@utility text-ui-caption {
+  font-size: 11px;
+  color: var(--color-ink-caption);
+}
+
+@utility text-ui-meta {
+  font-size: 12px;
+  color: var(--color-ink-muted);
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+/* Golden-green backdrop so white bloom petals stay visible */
+@utility mogara-logo-well {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: linear-gradient(
+    155deg,
+    var(--color-logo-gold-light) 0%,
+    var(--color-logo-gold) 52%,
+    var(--color-logo-green-soft) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 1px 3px rgba(42, 38, 32, 0.08);
+  ring: 1px solid color-mix(in srgb, var(--color-primary-deep) 25%, var(--color-green-vein));
+}
+
+@utility mogara-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-subtle);
+  background: linear-gradient(
+    165deg,
+    var(--color-white-paper) 0%,
+    var(--color-white-petal) 45%,
+    var(--color-white-cream) 100%
+  );
+  box-shadow: var(--shadow-soft);
+}
+
+@utility mogara-panel-highlight {
+  border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border-green));
+  box-shadow: var(--shadow-glow), var(--shadow-green);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  height: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bloom-breathe {
+  0%,
+  100% {
+    opacity: 0.92;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bloom-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px rgba(224, 168, 77, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(232, 179, 92, 0.55));
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse 90% 50% at 50% -10%, var(--color-ambient-gold), transparent 55%),
+    radial-gradient(ellipse 45% 35% at 0% 100%, var(--color-ambient-green), transparent 50%),
+    radial-gradient(ellipse 40% 30% at 100% 90%, var(--color-ambient-green), transparent 45%);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(224, 168, 77, 0.35);
+  color: var(--color-ink);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-white-silver) transparent;
+}
+
+/* Calendar */
+.rbc-calendar {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-ink-muted);
+}
+
+.rbc-toolbar {
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+.rbc-toolbar button {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-ink-secondary);
+  background: var(--color-white-paper);
+  padding: 6px 12px;
+  font-size: 13px;
+  transition:
+    background var(--duration-slow) var(--ease-mogara),
+    border-color var(--duration-slow) var(--ease-mogara),
+    color var(--duration-slow) var(--ease-mogara);
+}
+
+.rbc-toolbar button:hover,
+.rbc-toolbar button.rbc-active {
+  background: var(--color-hover-surface);
+  color: var(--color-ink);
+  border-color: var(--color-border-focus);
+}
+
+.rbc-header {
+  color: var(--color-ink-muted);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 0;
+  border-color: var(--color-border);
+}
+
+.rbc-off-range-bg {
+  background: var(--color-white-milk);
+}
+
+.rbc-today {
+  background: var(--color-green-glow);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-green) 30%, transparent);
+}
+
+.rbc-date-cell > a,
+.rbc-date-cell {
+  color: var(--color-ink-secondary);
+  font-size: 13px;
+}
+
+.rbc-event {
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 2px 8px !important;
+  font-size: 11px !important;
+  font-weight: 500;
+  background: color-mix(in srgb, var(--color-blue) 18%, var(--color-white-paper)) !important;
+  color: var(--color-ink) !important;
+}
+
+.rbc-event.event-review {
+  background: color-mix(in srgb, var(--color-violet) 15%, var(--color-white-paper)) !important;
+}
+
+.rbc-event.event-goal {
+  background: color-mix(in srgb, var(--color-primary) 18%, var(--color-white-paper)) !important;
+}
+
+.rbc-month-view,
+.rbc-time-view,
+.rbc-day-bg + .rbc-day-bg {
+  border-color: var(--color-border-subtle);
+}
+
+.rbc-day-bg {
+  background: var(--color-white-paper);
+}
+
+.rbc-day-bg.day-active {
+  background: color-mix(in srgb, var(--color-green) 10%, var(--color-white-paper));
+}
+
+.rbc-day-bg.day-inactive {
+  background: var(--color-white-cream);
+}
+
+.rbc-month-row + .rbc-month-row {
+  border-color: var(--color-border-subtle);
+}
+
+.rbc-show-more {
+  color: var(--color-primary-deep);
+  background: transparent;
+}

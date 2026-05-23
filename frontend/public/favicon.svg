@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Mogara">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#faf0d4"/>
+      <stop offset="55%" stop-color="#edd896"/>
+      <stop offset="100%" stop-color="#d8eadc"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#bg)"/>
+  <!-- leaves -->
+  <ellipse cx="10" cy="26" rx="5" ry="2.5" fill="#5e8f6a" transform="rotate(-20 10 26)"/>
+  <ellipse cx="22" cy="26" rx="4.5" ry="2.2" fill="#4a7a58" transform="rotate(18 22 26)"/>
+  <!-- petals -->
+  <g fill="#ffffff" stroke="#d4cfc6" stroke-width="0.35">
+    <ellipse cx="16" cy="9" rx="3.5" ry="5.5" transform="rotate(-8 16 9)"/>
+    <ellipse cx="21" cy="12" rx="3" ry="5" transform="rotate(42 21 12)"/>
+    <ellipse cx="22" cy="17" rx="3.2" ry="4.5" transform="rotate(100 22 17)"/>
+    <ellipse cx="18" cy="21" rx="3" ry="4.2" transform="rotate(160 18 21)"/>
+    <ellipse cx="12" cy="21" rx="3.2" ry="4.5" transform="rotate(220 12 21)"/>
+    <ellipse cx="10" cy="16" rx="3" ry="5" transform="rotate(280 10 16)"/>
+  </g>
+  <!-- golden heart -->
+  <circle cx="16" cy="15" r="4" fill="#c4922e"/>
+  <circle cx="16" cy="15" r="1.8" fill="#f0d898"/>
+</svg>
