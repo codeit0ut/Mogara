@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import type { ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 import { IconExternal } from "./icons";
 
@@ -295,14 +296,17 @@ export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} className={`${fieldClass} ${props.className ?? ""}`} />;
 }
 
-export function Textarea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return (
-    <textarea
-      {...props}
-      className={`${fieldClass} resize-y py-2.5 leading-relaxed ${props.className ?? ""}`}
-    />
-  );
-}
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(
+  function Textarea(props, ref) {
+    return (
+      <textarea
+        ref={ref}
+        {...props}
+        className={`${fieldClass} resize-y py-2.5 leading-relaxed ${props.className ?? ""}`}
+      />
+    );
+  }
+);
 
 export function Button({
   variant = "soft",

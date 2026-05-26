@@ -23,6 +23,25 @@ export function IconToday({ className = "w-4 h-4" }: IconProps) {
   );
 }
 
+/** Reusable note layouts for core tasks */
+export function IconTemplate({ className = "w-4 h-4" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="4" y="3" width="12" height="16" rx="1.5" />
+      <path d="M8 8h4M8 12h4M8 16h2" />
+      <path d="M14 7h6v14H10" />
+    </svg>
+  );
+}
+
 export function IconNotes({ className = "w-4 h-4" }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke}>

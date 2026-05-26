@@ -8,6 +8,7 @@ from app.api.routers import (
     life_areas,
     life_goals,
     momentum,
+    note_templates,
     quick_notes,
     settings,
     short_term_goals,
@@ -24,6 +25,7 @@ protected.include_router(life_goals.router)
 protected.include_router(short_term_goals.router)
 protected.include_router(weekly_goals.router)
 protected.include_router(core_tasks.router)
+protected.include_router(note_templates.router)
 protected.include_router(quick_notes.router)
 protected.include_router(momentum.router)
 protected.include_router(weekly_reviews.router)

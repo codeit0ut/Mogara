@@ -19,6 +19,7 @@ from app.models import AppSettings, User
 _USER_OWNED_TABLES = (
     "momentum_events",
     "core_tasks",
+    "note_templates",
     "quick_notes",
     "weekly_goals",
     "weekly_reviews",

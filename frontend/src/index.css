@@ -346,3 +346,149 @@ body {
   color: var(--color-primary-deep);
   background: transparent;
 }
+
+/* Task notes — read-only Markdown document */
+.task-notes-document {
+  min-height: 4.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-white-paper);
+  padding: 0.75rem 1rem;
+}
+
+.task-notes-markdown {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--color-ink);
+  word-break: break-word;
+}
+
+.task-notes-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.task-notes-markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+.task-notes-markdown p {
+  margin: 0 0 0.65em;
+}
+
+/* In-note headings: subordinate to the section "Notes" label above the card */
+.task-notes-markdown h1,
+.task-notes-markdown h2,
+.task-notes-markdown h3,
+.task-notes-markdown h4 {
+  margin: 0.85em 0 0.35em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-ink-secondary);
+}
+
+.task-notes-markdown > :first-child:is(h1, h2, h3, h4) {
+  margin-top: 0;
+}
+
+.task-notes-markdown h1 {
+  font-size: 1.125rem;
+}
+
+.task-notes-markdown h2 {
+  font-size: 1rem;
+}
+
+.task-notes-markdown h3,
+.task-notes-markdown h4 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.task-notes-markdown ul,
+.task-notes-markdown ol {
+  margin: 0 0 0.65em;
+  padding-left: 1.5rem;
+  list-style-position: outside;
+}
+
+.task-notes-markdown ul {
+  list-style-type: disc;
+}
+
+.task-notes-markdown ol {
+  list-style-type: decimal;
+}
+
+.task-notes-markdown ul ul {
+  list-style-type: circle;
+  margin-top: 0.25em;
+}
+
+.task-notes-markdown ol ol {
+  list-style-type: lower-alpha;
+}
+
+.task-notes-markdown li {
+  margin: 0.25em 0;
+  padding-left: 0.15em;
+}
+
+.task-notes-markdown li::marker {
+  color: var(--color-ink-muted);
+}
+
+.task-notes-markdown li > p {
+  margin: 0;
+}
+
+.task-notes-markdown strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.task-notes-markdown em {
+  font-style: italic;
+}
+
+.task-notes-markdown code {
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-green-muted);
+  padding: 0.1em 0.35em;
+  font-family: ui-monospace, monospace;
+}
+
+.task-notes-markdown pre {
+  margin: 0 0 0.65em;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-cream);
+  padding: 0.65rem 0.75rem;
+}
+
+.task-notes-markdown pre code {
+  background: none;
+  padding: 0;
+}
+
+.task-notes-markdown a {
+  color: var(--color-primary-deep);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.task-notes-markdown blockquote {
+  margin: 0 0 0.65em;
+  border-left: 3px solid var(--color-border-green);
+  padding-left: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+.task-notes-markdown hr {
+  margin: 0.75em 0;
+  border: none;
+  border-top: 1px solid var(--color-border-subtle);
+}

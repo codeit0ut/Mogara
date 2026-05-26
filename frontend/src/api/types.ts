@@ -67,6 +67,14 @@ export interface CoreTask {
   updated_at: string;
 }
 
+export interface NoteTemplate {
+  id: number;
+  title: string;
+  body: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface QuickNote {
   id: number;
   body: string;

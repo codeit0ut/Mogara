@@ -2,6 +2,8 @@
 export const PAGE_HINTS = {
   coreTasks: "What you do today — each task links to this week's focus.",
   quickNotes: "Scratch pad for passing thoughts — not tied to goals or momentum.",
+  noteTemplates:
+    "Reusable Markdown layouts for core task notes — insert them when editing a task.",
   weeklyFocus: "Your main intention this week — tied to a short-term goal.",
   weeklyReflection:
     "Look back on the week — submit to save; only casual notes stay editable after.",
@@ -36,6 +38,7 @@ export const SECTION_HINTS = {
 export const NAV_HINTS = {
   coreTasks: "Daily tasks linked to weekly focus",
   quickNotes: "Freeform notes — no goal link",
+  noteTemplates: "Saved note layouts for core tasks",
   weeklyFocus: "This week's priority",
   weeklyReflection: "Review the week",
   lifeAreas: "Themes for grouping goals",
@@ -56,6 +59,7 @@ export const EMPTY_HINTS = {
   noWeeklyFocus: "Add this week's focus, linked to a short-term goal.",
   noCoreTasks: "Add one task that would make today feel intentional.",
   noNotes: "Jot down a thought — it won't affect momentum.",
+  noTemplates: "Save a template from a task note, or add one here.",
   noSearch: "Try another word in the search box.",
   noEnergy: "Complete core tasks to see where your energy went.",
   noJourney: "Complete tasks or widen the time range to see the line.",
@@ -67,6 +71,7 @@ export const DIALOG_HINTS = {
   addWeeklyFocus: "Must link to a short-term goal (then life goal and area follow).",
   addLifeGoal: "Optional area tag; color carries through tasks and focus.",
   addShortTerm: "Choose which life goal this milestone supports.",
+  noteTemplate: "Markdown supported — same format as core task notes.",
 } as const;
 
 export const LABEL_HINTS = {

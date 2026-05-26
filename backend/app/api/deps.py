@@ -14,6 +14,7 @@ from app.services import (
     LifeAreaService,
     LifeGoalService,
     MomentumService,
+    NoteTemplateService,
     QuickNoteService,
     SettingsService,
     ShortTermGoalService,
@@ -57,6 +58,9 @@ WeeklyGoalServiceDep = Annotated[
     WeeklyGoalService, Depends(_service_factory(WeeklyGoalService))
 ]
 CoreTaskServiceDep = Annotated[CoreTaskService, Depends(_service_factory(CoreTaskService))]
+NoteTemplateServiceDep = Annotated[
+    NoteTemplateService, Depends(_service_factory(NoteTemplateService))
+]
 QuickNoteServiceDep = Annotated[QuickNoteService, Depends(_service_factory(QuickNoteService))]
 MomentumServiceDep = Annotated[MomentumService, Depends(_service_factory(MomentumService))]
 WeeklyReviewServiceDep = Annotated[

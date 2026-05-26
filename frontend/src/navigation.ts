@@ -35,11 +35,12 @@ export const NAV_MODULES: NavModule[] = [
     panelTitle: "Core tasks",
     panelHint: NAV_HINTS.panelToday,
     icon: IconToday,
-    match: (p) => p === "/" || p === "/notes",
+    match: (p) => p === "/" || p === "/notes" || p === "/templates",
     defaultTo: "/",
     children: [
       { to: "/", label: "Core tasks", hint: NAV_HINTS.coreTasks, end: true },
       { to: "/notes", label: "Quick notes", hint: NAV_HINTS.quickNotes },
+      { to: "/templates", label: "Templates", hint: NAV_HINTS.noteTemplates },
     ],
   },
   {
@@ -117,6 +118,7 @@ export function moduleHasSubnav(module: NavModule): boolean {
 const ROUTE_TITLES: Record<string, { section: string; title: string }> = {
   "/": { section: "Core tasks", title: "Core tasks" },
   "/notes": { section: "Core tasks", title: "Quick notes" },
+  "/templates": { section: "Core tasks", title: "Note templates" },
   "/week/focus": { section: "Week", title: "Weekly focus" },
   "/week/reflection": { section: "Week", title: "Weekly reflection" },
   "/goals/areas": { section: "Goals", title: "Life areas" },

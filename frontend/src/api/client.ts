@@ -7,6 +7,7 @@ import type {
   LifeGoal,
   MomentumCurrent,
   MomentumEvent,
+  NoteTemplate,
   QuickNote,
   ShortTermGoal,
   WeeklyGoal,
@@ -140,6 +141,21 @@ export const api = {
       }),
     remove: (id: number) =>
       request<void>(`/core-tasks/${id}`, { method: "DELETE" }),
+  },
+  noteTemplates: {
+    list: () => request<NoteTemplate[]>("/note-templates"),
+    create: (data: { title: string; body: string }) =>
+      request<NoteTemplate>("/note-templates", {
+        method: "POST",
+        body: JSON.stringify(data),
+      }),
+    update: (id: number, data: { title?: string; body?: string }) =>
+      request<NoteTemplate>(`/note-templates/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      }),
+    remove: (id: number) =>
+      request<void>(`/note-templates/${id}`, { method: "DELETE" }),
   },
   quickNotes: {
     list: (noteDate?: string) =>

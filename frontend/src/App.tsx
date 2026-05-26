@@ -10,6 +10,7 @@ import { GoalsShortTerm } from "./pages/goals/GoalsShortTerm";
 import { Insights } from "./pages/Insights";
 import { Login } from "./pages/Login";
 import { Profile } from "./pages/Profile";
+import { NoteTemplatesPage } from "./pages/NoteTemplatesPage";
 import { QuickNotesPage } from "./pages/QuickNotesPage";
 import { Register } from "./pages/Register";
 import { Settings } from "./pages/Settings";
@@ -29,6 +30,7 @@ export default function App() {
               <Route element={<Layout />}>
                 <Route index element={<Today />} />
                 <Route path="notes" element={<QuickNotesPage />} />
+                <Route path="templates" element={<NoteTemplatesPage />} />
                 <Route path="week" element={<Navigate to="/week/focus" replace />} />
                 <Route path="week/focus" element={<WeekFocus />} />
                 <Route path="week/reflection" element={<WeekReflection />} />

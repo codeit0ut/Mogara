@@ -166,6 +166,29 @@ class CoreTaskOut(BaseModel):
     updated_at: datetime
 
 
+class NoteTemplateCreate(BaseModel):
+    title: str
+    body: str
+
+
+class NoteTemplateUpdate(BaseModel):
+    title: str | None = None
+    body: str | None = None
+
+
+class NoteTemplateOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    title: str
+    body: str
+    is_deleted: bool
+    deleted_at: datetime | None
+    delete_reason: str | None
+    created_at: datetime
+    updated_at: datetime
+
+
 class QuickNoteCreate(BaseModel):
     body: str
     note_date: date | None = None

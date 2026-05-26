@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { api } from "../api/client";
 import type { CoreTask, LifeArea, LifeGoal, ShortTermGoal, WeeklyGoal } from "../api/types";
 import { Dialog } from "../components/Dialog";
+import { TaskNotesSection } from "../components/TaskNotesSection";
 import { TrashButton } from "../components/TrashButton";
 import { DIALOG_HINTS, EMPTY_HINTS, PAGE_HINTS } from "../copy/hints";
 import { GoalColorMark } from "../components/GoalColorMark";
@@ -24,7 +25,6 @@ import {
   PillGroup,
   Row,
   TableToolbar,
-  Textarea,
 } from "../components/ui";
 import { runAction } from "../utils/runAction";
 import {
@@ -480,16 +480,12 @@ export function Today() {
                                   </p>
                                 </div>
                               </div>
-                              <div>
-                                <Label>Notes</Label>
-                                <Textarea
-                                  rows={2}
-                                  defaultValue={task.notes ?? ""}
-                                  onBlur={(e) =>
-                                    saveTaskField(task.id, { notes: e.target.value || null }, true)
-                                  }
-                                />
-                              </div>
+                              <TaskNotesSection
+                                value={task.notes}
+                                onSave={(notes) =>
+                                  saveTaskField(task.id, { notes }, true)
+                                }
+                              />
                               <div>
                                 <Label>Weekly focus</Label>
                                 <Select

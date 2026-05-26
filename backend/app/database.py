@@ -63,6 +63,7 @@ def get_db() -> Generator[Session, None, None]:
 _ALL_DATA_TABLES = (
     "momentum_events",
     "core_tasks",
+    "note_templates",
     "quick_notes",
     "weekly_goals",
     "weekly_reviews",
