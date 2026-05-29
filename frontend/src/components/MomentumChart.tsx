@@ -8,8 +8,10 @@ const H = 200;
 
 export function MomentumChart({
   points,
+  compact = false,
 }: {
   points: { value: number; occurred_at?: string }[];
+  compact?: boolean;
 }) {
   if (points.length < 2) {
     return (
@@ -35,10 +37,18 @@ export function MomentumChart({
 
   return (
     <ChartPlotArea>
-      <div className="flex h-full min-h-[13.5rem] flex-col rounded-[var(--radius-md)] border border-[var(--color-border-subtle)] bg-[var(--color-white-paper)] p-3 sm:min-h-[14.5rem] lg:min-h-[15.5rem]">
+      <div
+        className={`flex h-full flex-col rounded-[var(--radius-md)] border border-[var(--color-border-subtle)] bg-[var(--color-white-paper)] p-3 ${
+          compact
+            ? "min-h-[9.5rem] sm:min-h-[10.5rem] lg:min-h-[11.5rem]"
+            : "min-h-[13.5rem] sm:min-h-[14.5rem] lg:min-h-[15.5rem]"
+        }`}
+      >
         <svg
           viewBox={`0 0 ${W} ${H}`}
-          className="h-full min-h-[12rem] w-full flex-1"
+          className={`h-full w-full flex-1 ${
+            compact ? "min-h-[8rem]" : "min-h-[12rem]"
+          }`}
           preserveAspectRatio="none"
           aria-hidden
         >

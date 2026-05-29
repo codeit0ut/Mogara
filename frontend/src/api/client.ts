@@ -7,9 +7,11 @@ import type {
   LifeGoal,
   MomentumCurrent,
   MomentumEvent,
+  MonthlyAnalysisMonth,
   NoteTemplate,
   QuickNote,
   ShortTermGoal,
+  WeeklyAnalysisWeek,
   WeeklyGoal,
   WeeklyReview,
 } from "./types";
@@ -215,6 +217,14 @@ export const api = {
     dayActivity: (from: string, to: string) =>
       request<{ date: string; status: string }[]>(
         `/analytics/day-activity?from_date=${from}&to_date=${to}`
+      ),
+    weeklyAnalysis: (month: string) =>
+      request<WeeklyAnalysisWeek[]>(
+        `/analytics/weekly-analysis?month=${encodeURIComponent(month)}`
+      ),
+    monthlyAnalysis: (year: string) =>
+      request<MonthlyAnalysisMonth[]>(
+        `/analytics/monthly-analysis?year=${encodeURIComponent(year)}`
       ),
   },
 };

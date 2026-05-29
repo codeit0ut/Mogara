@@ -126,3 +126,26 @@ export interface AppSettings {
   week_starts_on: number;
   updated_at: string;
 }
+
+export interface MomentumPoint {
+  occurred_at: string;
+  value: number;
+}
+
+export interface WeeklyAnalysisWeek {
+  week_start: string;
+  week_end: string;
+  momentum_delta: number;
+  tasks_set: number;
+  tasks_completed: number;
+  momentum_points: MomentumPoint[];
+}
+
+export interface MonthlyAnalysisMonth {
+  month_start: string;
+  month_end: string;
+  momentum_delta: number;
+  tasks_set: number;
+  tasks_completed: number;
+  momentum_points: MomentumPoint[];
+}

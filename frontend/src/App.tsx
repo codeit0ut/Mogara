@@ -15,6 +15,8 @@ import { QuickNotesPage } from "./pages/QuickNotesPage";
 import { Register } from "./pages/Register";
 import { Settings } from "./pages/Settings";
 import { Today } from "./pages/Today";
+import { MonthlyAnalysisPage } from "./pages/MonthlyAnalysisPage";
+import { WeeklyAnalysisPage } from "./pages/WeeklyAnalysisPage";
 import { WeekFocus } from "./pages/week/WeekFocus";
 import { WeekReflection } from "./pages/week/WeekReflection";
 
@@ -34,6 +36,9 @@ export default function App() {
                 <Route path="week" element={<Navigate to="/week/focus" replace />} />
                 <Route path="week/focus" element={<WeekFocus />} />
                 <Route path="week/reflection" element={<WeekReflection />} />
+                <Route path="analysis" element={<Navigate to="/analysis/weekly" replace />} />
+                <Route path="analysis/weekly" element={<WeeklyAnalysisPage />} />
+                <Route path="analysis/monthly" element={<MonthlyAnalysisPage />} />
                 <Route path="goals" element={<Navigate to="/goals/areas" replace />} />
                 <Route path="goals/areas" element={<GoalsAreas />} />
                 <Route path="goals/life" element={<GoalsLife />} />

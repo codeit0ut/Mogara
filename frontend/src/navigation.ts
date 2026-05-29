@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import {
+  IconAnalysis,
   IconCalendar,
   IconGoals,
   IconInsights,
@@ -79,6 +80,27 @@ export const NAV_MODULES: NavModule[] = [
     ],
   },
   {
+    id: "analysis",
+    railLabel: "Analysis",
+    panelTitle: "Analysis",
+    panelHint: NAV_HINTS.panelAnalysis,
+    icon: IconAnalysis,
+    match: (p) => p.startsWith("/analysis"),
+    defaultTo: "/analysis/weekly",
+    children: [
+      {
+        to: "/analysis/weekly",
+        label: "Weekly analysis",
+        hint: NAV_HINTS.weeklyAnalysis,
+      },
+      {
+        to: "/analysis/monthly",
+        label: "Monthly analysis",
+        hint: NAV_HINTS.monthlyAnalysis,
+      },
+    ],
+  },
+  {
     id: "calendar",
     railLabel: "Calendar",
     panelTitle: "Calendar",
@@ -124,6 +146,8 @@ const ROUTE_TITLES: Record<string, { section: string; title: string }> = {
   "/goals/areas": { section: "Goals", title: "Life areas" },
   "/goals/life": { section: "Goals", title: "Life goals" },
   "/goals/short-term": { section: "Goals", title: "Short-term goals" },
+  "/analysis/weekly": { section: "Analysis", title: "Weekly analysis" },
+  "/analysis/monthly": { section: "Analysis", title: "Monthly analysis" },
   "/calendar": { section: "Calendar", title: "Calendar" },
   "/insights": { section: "Dashboard", title: "Dashboard" },
   "/settings": { section: "Settings", title: "Settings" },

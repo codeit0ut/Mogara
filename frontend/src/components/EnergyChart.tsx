@@ -10,9 +10,9 @@ const BAR_COLORS = [
 ];
 
 export function EnergyChart({ data }: { data: { label: string; count: number }[] }) {
-  const max = Math.max(...data.map((d) => d.count), 1);
+  const total = data.reduce((sum, d) => sum + d.count, 0);
 
-  if (data.length === 0) {
+  if (data.length === 0 || total === 0) {
     return (
       <ChartPlotArea>
         <EmptyState
@@ -27,23 +27,28 @@ export function EnergyChart({ data }: { data: { label: string; count: number }[]
   return (
     <ChartPlotArea>
       <ul className="flex w-full flex-col justify-center space-y-3 py-1">
-        {data.map(({ label, count }, i) => (
-          <li key={label}>
-            <div className="mb-1.5 flex justify-between text-xs">
-              <span className="font-medium text-[var(--color-ink-secondary)]">{label}</span>
-              <span className="tabular-nums text-[var(--color-ink-caption)]">{count}</span>
-            </div>
-            <div className="h-2 overflow-hidden rounded-full bg-[var(--color-momentum-low)]">
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{
-                  width: `${(count / max) * 100}%`,
-                  backgroundColor: BAR_COLORS[i % BAR_COLORS.length],
-                }}
-              />
-            </div>
-          </li>
-        ))}
+        {data.map(({ label, count }, i) => {
+          const pct = (count / total) * 100;
+          return (
+            <li key={label}>
+              <div className="mb-1.5 flex justify-between text-xs">
+                <span className="font-medium text-[var(--color-ink-secondary)]">{label}</span>
+                <span className="tabular-nums text-[var(--color-ink-caption)]">
+                  {Math.round(pct)}%
+                </span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-[var(--color-momentum-low)]">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${pct}%`,
+                    backgroundColor: BAR_COLORS[i % BAR_COLORS.length],
+                  }}
+                />
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </ChartPlotArea>
   );

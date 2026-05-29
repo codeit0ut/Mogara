@@ -4,6 +4,10 @@ export const PAGE_HINTS = {
   quickNotes: "Scratch pad for passing thoughts — not tied to goals or momentum.",
   noteTemplates:
     "Reusable Markdown layouts for core task notes — insert them when editing a task.",
+  weeklyAnalysis:
+    "Month view split into weeks — momentum delta and task completion at a glance.",
+  monthlyAnalysis:
+    "Year view split into months — momentum delta and task completion at a glance.",
   weeklyFocus: "Your main intention this week — tied to a short-term goal.",
   weeklyReflection:
     "Look back on the week — submit to save; only casual notes stay editable after.",
@@ -28,7 +32,7 @@ export const SECTION_HINTS = {
   weeklyFocusList: "Add what matters this week — one focus per row.",
   reflection: "Wins, friction, weekly rhythm — casual notes stay editable after submit.",
   momentumTrend: "How your score moved over the range you pick.",
-  lifeEnergy: "Where completed tasks landed, by life area.",
+  lifeEnergy: "Share of completed tasks by life area (percent).",
   bloom: "Opens with momentum and your latest weekly rhythm.",
   time: "Used for task dates, week boundaries, and inactivity checks.",
   momentumTools: "Records a dip when yesterday had tasks but none were completed.",
@@ -39,6 +43,8 @@ export const NAV_HINTS = {
   coreTasks: "Daily tasks linked to weekly focus",
   quickNotes: "Freeform notes — no goal link",
   noteTemplates: "Saved note layouts for core tasks",
+  weeklyAnalysis: "Month-by-month weekly momentum and task summary",
+  monthlyAnalysis: "Year-by-year monthly momentum and task summary",
   weeklyFocus: "This week's priority",
   weeklyReflection: "Review the week",
   lifeAreas: "Themes for grouping goals",
@@ -49,6 +55,7 @@ export const NAV_HINTS = {
   panelGoals: "Areas → life goals → short-term",
   panelCalendar: "Tasks across the month",
   panelDashboard: "Charts and summary stats",
+  panelAnalysis: "Weekly and monthly momentum snapshots",
   panelSettings: "Time and preferences",
 } as const;
 
@@ -64,6 +71,8 @@ export const EMPTY_HINTS = {
   noEnergy: "Complete core tasks to see where your energy went.",
   noJourney: "Complete tasks or widen the time range to see the line.",
   noReflectionWeek: "Nothing saved for this week yet.",
+  noWeeklyAnalysis: "No weeks found in this month.",
+  noMonthlyAnalysis: "No months found for this year.",
 } as const;
 
 export const DIALOG_HINTS = {

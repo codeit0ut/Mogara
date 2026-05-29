@@ -24,3 +24,19 @@ def day_activity(
     to_date: date = Query(...),
 ):
     return service.day_activity(from_date, to_date)
+
+
+@router.get("/weekly-analysis")
+def weekly_analysis(
+    service: AnalyticsServiceDep,
+    month: str = Query(..., pattern=r"^\d{4}-\d{2}$"),
+):
+    return service.weekly_analysis(month)
+
+
+@router.get("/monthly-analysis")
+def monthly_analysis(
+    service: AnalyticsServiceDep,
+    year: str = Query(..., pattern=r"^\d{4}$"),
+):
+    return service.monthly_analysis(year)

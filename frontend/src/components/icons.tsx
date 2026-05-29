@@ -84,6 +84,15 @@ export function IconInsights({ className = "w-4 h-4" }: IconProps) {
   );
 }
 
+export function IconAnalysis({ className = "w-4 h-4" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M7 9h10M7 13h5M14 13h3M7 17h3M12 17h5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function IconSettings({ className = "w-4 h-4" }: IconProps) {
   return (
     <svg
