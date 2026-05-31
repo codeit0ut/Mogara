@@ -1,18 +1,41 @@
+import { useId } from "react";
 import { EMPTY_HINTS } from "../copy/hints";
 import { ChartPlotArea, EmptyState } from "./ui";
 
-const MIN = 50;
-const MAX = 1000;
+const ABS_MIN = 50;
+const ABS_MAX = 1000;
 const W = 400;
 const H = 200;
+
+function chartScale(points: { value: number }[], autoScale: boolean) {
+  if (!autoScale) {
+    return { min: ABS_MIN, max: ABS_MAX };
+  }
+  const values = points.map((p) => p.value);
+  let min = Math.min(...values, 0);
+  let max = Math.max(...values, 0);
+  if (min === max) {
+    min -= 5;
+    max += 5;
+  } else {
+    const pad = Math.max(1, Math.round((max - min) * 0.12));
+    min -= pad;
+    max += pad;
+  }
+  return { min, max };
+}
 
 export function MomentumChart({
   points,
   compact = false,
+  autoScale = false,
 }: {
   points: { value: number; occurred_at?: string }[];
   compact?: boolean;
+  autoScale?: boolean;
 }) {
+  const gradId = useId();
+
   if (points.length < 2) {
     return (
       <ChartPlotArea>
@@ -25,10 +48,13 @@ export function MomentumChart({
     );
   }
 
+  const { min, max } = chartScale(points, autoScale);
+  const span = max - min || 1;
+
   const coords = points
     .map((p, i) => {
       const x = (i / (points.length - 1)) * W;
-      const y = H - ((p.value - MIN) / (MAX - MIN)) * H;
+      const y = H - ((p.value - min) / span) * H;
       return `${x},${y}`;
     })
     .join(" ");
@@ -53,7 +79,7 @@ export function MomentumChart({
           aria-hidden
         >
           <defs>
-            <linearGradient id="momentum-line" x1="0" y1="0" x2="1" y2="0">
+            <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="var(--color-momentum-line)" />
               <stop offset="100%" stopColor="var(--color-momentum-peak)" />
             </linearGradient>
@@ -61,7 +87,7 @@ export function MomentumChart({
           <path d={areaPath} fill="var(--color-momentum-fill)" />
           <polyline
             fill="none"
-            stroke="url(#momentum-line)"
+            stroke={`url(#${gradId})`}
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"

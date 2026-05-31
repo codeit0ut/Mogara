@@ -38,7 +38,7 @@ export function AnalysisPeriodCard({
           <Badge tone="neutral">Completed {tasksCompleted}</Badge>
         </div>
       </div>
-      <MomentumChart points={momentumPoints} compact />
+      <MomentumChart points={momentumPoints} compact autoScale />
     </li>
   );
 }
