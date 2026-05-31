@@ -4,6 +4,7 @@ from datetime import date, datetime, time, timedelta
 from sqlalchemy.orm import Session
 
 from app.core.exceptions import ValidationError
+from app.core.week_bounds import week_end_date, week_start_date
 from app.hierarchy import chain_from_task
 from app.models import CoreTask, GoalStatus, MomentumEvent
 from app.services.settings import SettingsService
@@ -96,20 +97,18 @@ class AnalyticsService:
         )
         week_starts_on = SettingsService(self.db, self.user_id).get_or_create().week_starts_on
 
-        first_week_start = month_start - timedelta(
-            days=(month_start.weekday() - week_starts_on) % 7
-        )
+        first_week = week_start_date(month_start, week_starts_on)
+        last_week = week_start_date(month_end, week_starts_on)
 
         weeks: list[dict] = []
-        cursor = first_week_start
-        while cursor <= month_end:
-            week_start = max(cursor, month_start)
-            week_end = min(cursor + timedelta(days=6), month_end)
-            stats = self._period_stats(week_start, week_end)
+        cursor = first_week
+        while cursor <= last_week:
+            w_end = week_end_date(cursor)
+            stats = self._period_stats(cursor, w_end, growth_chart=True)
             weeks.append(
                 {
-                    "week_start": week_start.isoformat(),
-                    "week_end": week_end.isoformat(),
+                    "week_start": cursor.isoformat(),
+                    "week_end": w_end.isoformat(),
                     **stats,
                 }
             )
@@ -131,7 +130,7 @@ class AnalyticsService:
             month_end = month_start.replace(
                 day=monthrange(year_num, month_num)[1]
             )
-            stats = self._period_stats(month_start, month_end)
+            stats = self._period_stats(month_start, month_end, growth_chart=True)
             months.append(
                 {
                     "month_start": month_start.isoformat(),
@@ -141,7 +140,9 @@ class AnalyticsService:
             )
         return months
 
-    def _period_stats(self, period_start: date, period_end: date) -> dict:
+    def _period_stats(
+        self, period_start: date, period_end: date, *, growth_chart: bool = False
+    ) -> dict:
         tasks = (
             self.db.query(CoreTask)
             .filter(
@@ -167,10 +168,15 @@ class AnalyticsService:
             .all()
         )
         momentum_delta = sum(e.change for e in events)
-        start_value = self._momentum_value_before(period_start)
-        momentum_points = self._momentum_points(
-            period_start, period_end, start_value, events
-        )
+        if growth_chart:
+            momentum_points = self._momentum_growth_points(
+                period_start, period_end, events
+            )
+        else:
+            start_value = self._momentum_value_before(period_start)
+            momentum_points = self._momentum_points(
+                period_start, period_end, start_value, events
+            )
         return {
             "momentum_delta": momentum_delta,
             "tasks_set": tasks_set,
@@ -215,6 +221,31 @@ class AnalyticsService:
             {
                 "occurred_at": datetime.combine(week_end, time.max).isoformat(),
                 "value": value,
+            }
+        )
+        return points
+
+    def _momentum_growth_points(
+        self,
+        period_start: date,
+        period_end: date,
+        events: list[MomentumEvent],
+    ) -> list[dict]:
+        """Cumulative change within the period only (starts at 0)."""
+        running = 0
+        points = [
+            {
+                "occurred_at": datetime.combine(period_start, time.min).isoformat(),
+                "value": 0,
+            }
+        ]
+        for event in events:
+            running += event.change
+            points.append({"occurred_at": event.occurred_at.isoformat(), "value": running})
+        points.append(
+            {
+                "occurred_at": datetime.combine(period_end, time.max).isoformat(),
+                "value": running,
             }
         )
         return points
