@@ -1,5 +1,5 @@
 from calendar import monthrange
-from datetime import date, datetime, time, timedelta
+from datetime import date, datetime, time, timedelta, timezone
 
 from sqlalchemy.orm import Session
 
@@ -18,16 +18,17 @@ class AnalyticsService:
         self.db = db
         self.user_id = user_id
 
-    def energy_allocation(self) -> list[dict]:
-        tasks = (
-            self.db.query(CoreTask)
-            .filter(
-                CoreTask.user_id == self.user_id,
-                CoreTask.is_deleted.is_(False),
-                CoreTask.completed_at.isnot(None),
-            )
-            .all()
-        )
+    def energy_allocation(self, since: datetime | None = None) -> list[dict]:
+        filters = [
+            CoreTask.user_id == self.user_id,
+            CoreTask.is_deleted.is_(False),
+            CoreTask.completed_at.isnot(None),
+        ]
+        if since is not None:
+            if since.tzinfo is None:
+                since = since.replace(tzinfo=timezone.utc)
+            filters.append(CoreTask.completed_at >= since)
+        tasks = self.db.query(CoreTask).filter(*filters).all()
         counts: dict[str, int] = {}
         for t in tasks:
             chain = chain_from_task(self.db, t)

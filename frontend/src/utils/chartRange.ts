@@ -15,13 +15,23 @@ export const MOMENTUM_RANGE_OPTIONS = [
 
 export type ChartRange = (typeof MOMENTUM_RANGE_OPTIONS)[number]["value"];
 
+export function rangeCutoffMs(range: ChartRange): number | null {
+  if (range === "ALL") return null;
+  const days = RANGE_DAYS[range] ?? 30;
+  return Date.now() - days * 24 * 60 * 60 * 1000;
+}
+
+export function rangeCutoffIso(range: ChartRange): string | undefined {
+  const cutoff = rangeCutoffMs(range);
+  return cutoff === null ? undefined : new Date(cutoff).toISOString();
+}
+
 export function filterPointsByRange<T extends { occurred_at?: string | null }>(
   points: T[],
-  range: string
+  range: ChartRange
 ): T[] {
-  if (range === "ALL") return points;
-  const days = RANGE_DAYS[range] ?? 30;
-  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+  const cutoff = rangeCutoffMs(range);
+  if (cutoff === null) return points;
   return points.filter((p) => {
     if (!p.occurred_at) return true;
     return new Date(p.occurred_at).getTime() >= cutoff;

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 from fastapi import APIRouter, Query
 
@@ -8,8 +8,11 @@ router = APIRouter(prefix="/analytics", tags=["analytics"])
 
 
 @router.get("/energy")
-def energy_allocation(service: AnalyticsServiceDep):
-    return service.energy_allocation()
+def energy_allocation(
+    service: AnalyticsServiceDep,
+    since: datetime | None = Query(None),
+):
+    return service.energy_allocation(since=since)
 
 
 @router.get("/momentum-journey")

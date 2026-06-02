@@ -203,7 +203,10 @@ export const api = {
       }),
   },
   analytics: {
-    energy: () => request<{ label: string; count: number }[]>("/analytics/energy"),
+    energy: (since?: string) =>
+      request<{ label: string; count: number }[]>(
+        `/analytics/energy${since ? `?since=${encodeURIComponent(since)}` : ""}`
+      ),
     momentumJourney: () =>
       request<
         {

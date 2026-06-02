@@ -11,6 +11,7 @@ import { calmFromReviews } from "../utils/directionCalm";
 import {
   filterPointsByRange,
   MOMENTUM_RANGE_OPTIONS,
+  rangeCutoffIso,
   type ChartRange,
 } from "../utils/chartRange";
 import { IconInsights } from "../components/icons";
@@ -28,6 +29,7 @@ import {
 export function Insights() {
   const navigate = useNavigate();
   const [range, setRange] = useState<ChartRange>("ALL");
+  const [energyRange, setEnergyRange] = useState<ChartRange>("ALL");
   const [journey, setJourney] = useState<{ value: number; occurred_at: string }[]>([]);
   const [energy, setEnergy] = useState<{ label: string; count: number }[]>([]);
   const [reviews, setReviews] = useState<WeeklyReview[]>([]);
@@ -39,19 +41,21 @@ export function Insights() {
   useEffect(() => {
     Promise.all([
       api.analytics.momentumJourney(),
-      api.analytics.energy(),
       api.momentum.current(),
       api.weeklyReviews.list(),
       api.lifeGoals.list(),
-    ]).then(([j, e, m, r, g]) => {
+    ]).then(([j, m, r, g]) => {
       setJourney(j.map((p) => ({ value: p.value, occurred_at: p.occurred_at })));
-      setEnergy(e);
       setMomentum(m.value);
       setReviews(r.filter((x) => x.submitted_at));
       setOpenReviewCount(r.filter((x) => !x.submitted_at).length);
       setGoals(g);
     });
   }, []);
+
+  useEffect(() => {
+    api.analytics.energy(rangeCutoffIso(energyRange)).then(setEnergy);
+  }, [energyRange]);
 
   const journeyInRange = useMemo(
     () => filterPointsByRange(journey, range),
@@ -98,7 +102,18 @@ export function Insights() {
         </Panel>
 
         <Panel className="flex flex-col">
-          <SectionTitle hint={SECTION_HINTS.lifeEnergy}>Life energy</SectionTitle>
+          <SectionTitle
+            action={
+              <TimeRangePills
+                value={energyRange}
+                onChange={(v) => setEnergyRange(v as ChartRange)}
+                options={[...MOMENTUM_RANGE_OPTIONS]}
+              />
+            }
+            hint={SECTION_HINTS.lifeEnergy}
+          >
+            Life energy
+          </SectionTitle>
           <EnergyChart data={energy} />
         </Panel>
       </div>
